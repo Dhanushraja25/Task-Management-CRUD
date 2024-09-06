@@ -16,7 +16,7 @@
         }
         .container {
             max-width: 900px;
-            margin-top: 3rem;
+            margin-top: 3.5rem;
             background-color: rgba(255, 255, 255, 0.8); /* Optional: Add a background color to the container for readability */
             padding: 2rem;
             border-radius: 8px;
@@ -51,7 +51,7 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center mb-4">Task Manager</h1>
+        <h1 class="text-center mb-5">Task Manager</h1>
 
         <div class="row g-3">
             <!-- Form to Create a Task -->
@@ -184,28 +184,28 @@
 
             // Retrieve Tasks
             document.getElementById('retrieveTasks').addEventListener('click', async () => {
-                try {
-                    const response = await fetch('http://localhost:3000/tasks');
-                    const tasks = await response.json();
-                    tasksList.innerHTML = tasks.map(task => {
-                        const formattedDate = new Date(task.due_date).toLocaleDateString();
-                        return `
-                            <div class="card mb-2">
-                                <div class="card-body">
-                                    <h5 class="card-title">${task.title}</h5>
-                                    <p class="card-text">${task.description}</p>
-                                    <p class="card-text"><strong>Due Date:</strong> ${formattedDate}</p>
-                                    <p class="card-text"><strong>Status:</strong> ${task.status}</p>
-                                </div>
-                            </div>
-                        `;
-                    }).join('');
+    try {
+        const response = await fetch('http://localhost:3000/tasks');
+        const tasks = await response.json();
+        tasksList.innerHTML = tasks.map(task => {
+            const formattedDate = new Date(task.due_date).toLocaleDateString();
+            return `
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <h5 class="card-title"> ${task.title} (Task ID-${task.id})</h5>
+                        <p class="card-text">${task.description}</p>
+                        <p class="card-text"><strong>Due Date:</strong> ${formattedDate}</p>
+                        <p class="card-text"><strong>Status:</strong> ${task.status}</p>
+                    </div>
+                </div>
+            `;
+        }).join('');
 
-                    hideTasksButton.classList.remove('d-none');
-                } catch (error) {
-                    alert('Error retrieving tasks: ' + error.message);
-                }
-            });
+        hideTasksButton.classList.remove('d-none');
+    } catch (error) {
+        alert('Error retrieving tasks: ' + error.message);
+    }
+});
 
             // Hide Tasks
             hideTasksButton.addEventListener('click', () => {
